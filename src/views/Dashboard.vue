@@ -14,7 +14,8 @@
 
             <p class="lead">
 
-                Welcome to Coffee Shop Management System
+                Good Coffee, Good Mood ☕
+            Let's brew something amazing today!
 
             </p>
 
