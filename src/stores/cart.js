@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
-export const useCartStore = defineStore('cart', {
+export const useCartStore = defineStore("cart", {
 
     state: () => ({
 
@@ -10,34 +10,44 @@ export const useCartStore = defineStore('cart', {
 
     getters: {
 
-        totalItem(state) {
+        totalItem(state){
 
-            return state.cart.length
+            return state.cart.length;
+
+        },
+
+        totalPrice(state){
+
+            return state.cart.reduce((total,item)=>{
+
+                return total + item.price;
+
+            },0);
 
         }
 
     },
 
-    actions: {
+    actions:{
 
-        addToCart(item) {
+        addToCart(item){
 
-            this.cart.push(item)
-
-        },
-
-        removeFromCart(index) {
-
-            this.cart.splice(index, 1)
+            this.cart.push(item);
 
         },
 
-        clearCart() {
+        removeFromCart(index){
 
-            this.cart = []
+            this.cart.splice(index,1);
+
+        },
+
+        clearCart(){
+
+            this.cart=[];
 
         }
 
     }
 
-})
+});
