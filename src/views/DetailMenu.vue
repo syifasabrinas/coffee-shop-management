@@ -3,43 +3,51 @@
 
   <div class="container mt-5">
 
-    <div class="row">
+    <div class="card shadow">
 
-      <div class="col-md-6">
+      <div class="row g-0">
 
-        <img
-          :src="menu.image"
-          class="img-fluid rounded shadow"
-          alt="Coffee"
-        >
+        <div class="col-md-5">
 
-      </div>
+          <img
+            :src="menu.image"
+            class="img-fluid rounded-start"
+            style="height:100%; object-fit:cover;"
+          >
 
-      <div class="col-md-6">
+        </div>
 
-        <h2>{{ menu.name }}</h2>
+        <div class="col-md-7">
 
-        <h4 class="text-success mb-3">
-          Rp {{ menu.price }}
-        </h4>
+          <div class="card-body">
 
-        <p>
-          {{ menu.description }}
-        </p>
+            <h2>{{ menu.name }}</h2>
 
-        <button
-          class="btn btn-warning"
-          @click="addToCart"
-        >
-          Add To Cart
-        </button>
+            <h4 class="text-success">
+              Rp {{ menu.price.toLocaleString("id-ID") }}
+            </h4>
 
-        <RouterLink
-          to="/menu"
-          class="btn btn-secondary ms-2"
-        >
-          Kembali
-        </RouterLink>
+            <p class="mt-3">
+              {{ menu.description }}
+            </p>
+
+            <button
+              class="btn btn-warning me-2"
+              @click="addToCart(menu)"
+            >
+              Add To Cart
+            </button>
+
+            <RouterLink
+              to="/menu"
+              class="btn btn-secondary"
+            >
+              Kembali
+            </RouterLink>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -51,21 +59,44 @@
 </template>
 
 <script setup>
+import { useRoute, RouterLink } from "vue-router";
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import { RouterLink } from "vue-router";
+import { useCartStore } from "../stores/cart";
 
-const menu = {
-  id: 1,
-  name: "Cappuccino",
-  price: 25000,
-  description:
-    "Cappuccino adalah minuman kopi espresso yang dipadukan dengan steamed milk dan milk foam sehingga menghasilkan rasa yang lembut dan creamy.",
-  image:
-    "https://images.unsplash.com/photo-1509042239860-f550ce710b93"
-};
+const cartStore = useCartStore();
+const route = useRoute();
 
-function addToCart() {
-  alert(menu.name + " berhasil ditambahkan ke cart");
+const dataMenu = [
+  {
+    id: 1,
+    name: "Cappuccino",
+    price: 25000,
+    description: "Espresso dengan susu dan foam.",
+    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500",
+  },
+  {
+    id: 2,
+    name: "Latte",
+    price: 28000,
+    description: "Perpaduan espresso dan steamed milk.",
+    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500",
+  },
+  {
+    id: 3,
+    name: "Americano",
+    price: 22000,
+    description: "Espresso dicampur air panas.",
+    image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=500",
+  },
+];
+
+const menu = dataMenu.find(
+  (item) => item.id == route.params.id
+);
+
+function addToCart(item) {
+  cartStore.addToCart(item);
+  alert(item.name + " berhasil ditambahkan ke keranjang.");
 }
 </script>
