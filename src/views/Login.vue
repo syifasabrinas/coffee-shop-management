@@ -1,11 +1,13 @@
 <template>
   <Navbar />
 
-  <div class="container mt-5" style="max-width: 450px;">
+  <div class="container mt-5" style="max-width: 500px;">
     <div class="card shadow">
       <div class="card-body">
 
-        <h2 class="text-center mb-4">Login</h2>
+        <h3 class="text-center mb-4">
+          Login
+        </h3>
 
         <form @submit.prevent="login">
 
@@ -16,6 +18,7 @@
               class="form-control"
               v-model="username"
               placeholder="Masukkan username"
+              required
             />
           </div>
 
@@ -26,10 +29,13 @@
               class="form-control"
               v-model="password"
               placeholder="Masukkan password"
+              required
             />
           </div>
 
-          <button class="btn btn-primary w-100">
+          <button
+            class="btn btn-primary w-100"
+          >
             Login
           </button>
 

@@ -11,7 +11,6 @@
         :key="item.id"
       >
         <div class="card shadow h-100">
-
           <img
             :src="item.image"
             class="card-img-top"
@@ -19,7 +18,6 @@
           />
 
           <div class="card-body d-flex flex-column">
-
             <h4>{{ item.name }}</h4>
 
             <p class="text-muted">
@@ -27,11 +25,10 @@
             </p>
 
             <h5 class="text-success mb-3">
-              Rp {{ item.price.toLocaleString('id-ID') }}
+              Rp {{ Number(item.price).toLocaleString("id-ID") }}
             </h5>
 
             <div class="mt-auto">
-
               <RouterLink
                 :to="'/detail-menu/' + item.id"
                 class="btn btn-primary me-2"
@@ -45,9 +42,7 @@
               >
                 Add To Cart
               </button>
-
             </div>
-
           </div>
 
         </div>
@@ -65,7 +60,7 @@ import { RouterLink } from "vue-router";
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 
-import api from "../../services/api";
+import api from "../services/api";
 import { useCartStore } from "../stores/cart";
 
 const cartStore = useCartStore();
@@ -77,8 +72,8 @@ const getMenu = async () => {
     const response = await api.get("/menu");
     menu.value = response.data;
   } catch (error) {
-    console.log(error);
-    alert("Gagal mengambil data menu!");
+    console.error(error);
+    alert("Gagal mengambil data menu.");
   }
 };
 

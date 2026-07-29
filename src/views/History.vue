@@ -3,11 +3,15 @@
 
   <div class="container mt-5">
 
-    <div class="alert alert-success">
+    <h2>Riwayat Transaksi</h2>
 
-      <h3>✅ Pembayaran Berhasil</h3>
+    <div class="alert alert-info mt-4">
 
-      <p>Terima kasih telah berbelanja di Coffee Shop.</p>
+      <h5>Belum ada data transaksi.</h5>
+
+      <p>
+        Nanti pada tahap berikutnya data transaksi bisa disimpan menggunakan API atau database.
+      </p>
 
     </div>
 
@@ -17,8 +21,6 @@
 </template>
 
 <script setup>
-
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-
 </script>

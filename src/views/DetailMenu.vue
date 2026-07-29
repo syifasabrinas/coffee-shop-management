@@ -1,7 +1,7 @@
 <template>
   <Navbar />
 
-  <div class="container mt-5">
+  <div class="container mt-5" v-if="menu">
     <div class="card shadow p-3">
       <div class="row">
 
@@ -20,7 +20,7 @@
           <h2 class="fw-bold">{{ menu.name }}</h2>
 
           <h4 class="text-success mb-3">
-            Rp {{ Number(menu.price || 0).toLocaleString("id-ID") }}
+            Rp {{ Number(menu.price).toLocaleString("id-ID") }}
           </h4>
 
           <p class="text-muted">
@@ -63,9 +63,12 @@
           </div>
 
         </div>
-
       </div>
     </div>
+  </div>
+
+  <div v-else class="text-center mt-5">
+    <h4>Loading...</h4>
   </div>
 
   <Footer />
@@ -78,23 +81,23 @@ import { useRoute, RouterLink } from "vue-router";
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 
+import api from "../services/api";
 import { useCartStore } from "../stores/cart";
-import api from "../../services/api";
 
 const route = useRoute();
 const cartStore = useCartStore();
 
-const menu = ref({});
+const menu = ref(null);
 
-async function getDetailMenu() {
+const getDetailMenu = async () => {
   try {
     const response = await api.get("/menu/" + route.params.id);
     menu.value = response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     alert("Data menu tidak ditemukan!");
   }
-}
+};
 
 function addToCart(item) {
   cartStore.addToCart(item);
